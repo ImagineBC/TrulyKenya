@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en" id="top">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Truly Kenya Digital – Empowering Kenya, One Post at a Time</title>
+  <meta name="description" content="Truly Kenya Digital is Kenya’s leading ethical social media platform, empowering citizens to create, share, and earn through educational, inspirational, and informative content.">
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Palette – Kenya flag */
+      --red:#bb2026;
+      --green:#228b22;
+      --black:#000;
+      --white:#fff;
+      --gray-100:#f7f7f7;
+      --gray-700:#444;
+      --max-width:1200px;
+
+      /* Typography */
+      --font-head:'Montserrat',sans-serif;
+      --font-body:'Open Sans',sans-serif;
+
+      /* Spacing */
+      --space-xs:.5rem;
+      --space-sm:.75rem;
+      --space-md:1rem;
+      --space-lg:1.5rem;
+      --space-xl:2.5rem;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font-body);color:var(--gray-700);background:var(--white);line-height:1.6;overflow-x:hidden}
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:var(--red)}
+
+    /* Accessibility */
+    .skip-link {
+      position: absolute;
+      top: -4rem; /* Adjusted to ensure it's truly off-screen initially */
+      left: .5rem;
+      background: var(--black);
+      color: var(--white);
+      padding: var(--space-sm) var(--space-md);
+      z-index: 9999;
+      transition: top 0.3s ease-in-out;
+      border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* ---------------- Header ---------------- */
+    header{display:flex;align-items:center;justify-content:space-between;padding:var(--space-sm) var(--space-lg);position:sticky;top:0;background:var(--white);box-shadow:0 2px 4px rgba(0,0,0,.05);z-index:1000}
+    .logo{display:flex;align-items:center;gap:var(--space-sm)}
+    .logo img{height:48px}
+    .logo-title{font-family:var(--font-head);font-weight:700;font-size:1.4rem;color:var(--black)}
+    nav ul{display:flex;gap:var(--space-lg);list-style:none}
+    nav a{font-weight:600;font-family:var(--font-head);color:var(--black);padding:var(--space-xs) var(--space-sm);border-radius:4px;transition:background .2s}
+    nav a:hover, nav a:focus{background:var(--gray-100); outline: 2px solid var(--green);}
+    /* Hamburger */
+    .hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;background:transparent;border:none;padding:var(--space-xs)}
+    .hamburger span{width:24px;height:3px;background:var(--black);transition:.3s; border-radius: 1px;}
+    .hamburger:focus { outline: 2px solid var(--green); border-radius: 4px;}
+    /* Mobile nav */
+    @media(max-width:768px){
+      .hamburger{display:flex}
+      nav{position:fixed;top:0;right:-100%;height:100vh;width:240px;background:var(--white);box-shadow:-4px 0 8px rgba(0,0,0,.1);padding:var(--space-xl) var(--space-lg);transition:right .3s ease-in-out; z-index: 1100;}
+      nav.open{right:0}
+      nav ul{flex-direction:column;gap:var(--space-md)}
+    }
+
+    /* ---------------- Hero ---------------- */
+    .hero{
+      background:url('https://imaginebc.net/wp-content/uploads/2025/06/TrulyKenyaHeroImage.webp') center center/cover no-repeat;
+      min-height:55vh;
+      position:relative;
+      color:var(--white);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+    }
+    .hero::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.45)}
+    .hero-content{position:relative;max-width:800px;padding:0 var(--space-lg)}
+    .hero h1{
+      font-family:var(--font-head);
+      font-size:clamp(2.5rem, 5vw + 1rem, 4.8rem);
+      font-weight:700;
+      line-height:1.25;
+      margin-bottom:var(--space-md);
+    }
+    .cta-btn{display:inline-block;background:linear-gradient(90deg,var(--green),var(--red));color:var(--white);padding:var(--space-sm) var(--space-lg);border-radius:30px;font-weight:700;box-shadow:0 3px 6px rgba(0,0,0,.2);transition:transform .25s, box-shadow .25s}
+    .cta-btn:hover, .cta-btn:focus{transform:translateY(-3px); box-shadow:0 6px 12px rgba(0,0,0,.3); outline: none;}
+
+    /* ---------------- Sections ---------------- */
+    section{padding:var(--space-xl) var(--space-lg)}
+    section:nth-of-type(even){background:var(--gray-100)}
+    .container{max-width:var(--max-width);margin:auto}
+    h2.section-title{font-family:var(--font-head);font-size:2rem;margin-bottom:var(--space-lg);color:var(--black);text-align:center;position:relative}
+    h2.section-title::after{content:"";display:block;width:60px;height:4px;background:var(--red);margin:var(--space-sm) auto 0;border-radius:2px}
+    .section-title--align-left {text-align: left;}
+    .section-title--align-left::after {margin-left: 0; margin-right:auto;}
+
+    /* About */
+    .about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-lg);align-items:center}
+    .about-grid img{border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.1)}
+
+    /* Core Values */
+    .values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--space-lg)}
+    .value-card{background:var(--white);border:1px solid #e0e0e0;border-radius:12px;box-shadow:0 3px 8px rgba(0,0,0,.05);overflow:hidden;transition:transform .25s,box-shadow .25s; display:flex; flex-direction:column;}
+    .value-card:hover, .value-card:focus-within {transform:translateY(-4px);box-shadow:0 6px 16px rgba(0,0,0,.08)}
+    .value-card img{height:180px;object-fit:cover;width:100%}
+    .value-card-content{padding:var(--space-md); flex-grow:1;}
+    .value-card h3{font-family:var(--font-head);font-size:1.2rem;margin-bottom:var(--space-sm);color:var(--green)}
+    .value-card p{font-size:.95rem;color:var(--gray-700)}
+
+    /* Monetization / Unity two‑col */
+    .split{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-xl);align-items:center}
+    .split img {border-radius: 8px;}
+    
+    /* Default styling for ul in .split - ensure it doesn't conflict or remove if .engage-features-list is the only case */
+    .split ul {list-style: none; padding-left: 0; margin-top: var(--space-md);}
+    /* .split ul li { padding-left: var(--space-md); position: relative; margin-bottom: var(--space-sm);} */ /* Old rule for data-emoji */
+    /* .split ul li::before { content: attr(data-emoji); position: absolute; left: 0; } */ /* Old rule for data-emoji */
+
+    /* NEW: Styling for "Earn as You Engage" features list */
+    .engage-features-list {
+      list-style: none;
+      padding-left: 0;
+      margin-top: var(--space-lg); /* Slightly more top margin */
+    }
+    .engage-features-list li {
+      display: flex;
+      align-items: flex-start; /* Align icon to top of text if text wraps */
+      margin-bottom: var(--space-lg); /* More space between list items */
+      font-size: 1rem; /* Ensure consistent font size */
+    }
+    .engage-features-list .feature-icon {
+      width: 28px;
+      height: 28px;
+      fill: var(--green); /* Using theme color for icons */
+      margin-right: var(--space-md); /* Space between icon and text */
+      flex-shrink: 0; /* Prevent icon from shrinking */
+    }
+    .engage-features-list li span {
+      flex-grow: 1; /* Allow text to take remaining space */
+      line-height: 1.5; /* Adjust line height for readability with icon */
+    }
+
+    /* Utility Classes */
+    .text-center {text-align: center;}
+
+    /* Footer */
+    footer{background:var(--black);color:var(--white);text-align:center;padding:var(--space-lg) var(--space-md)}
+    footer img{height:32px;margin:var(--space-sm) auto}
+    footer p{font-size:.9rem;margin-bottom:var(--space-sm)}
+    footer a:hover img, footer a:focus img {opacity: 0.8;}
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header>
+    <div class="logo">
+      <img src="https://imaginebc.net/wp-content/uploads/2025/06/LogoTransparent-Dark-Colors.png" alt="Truly Kenya Digital company logo" />
+      <span class="logo-title">Truly Kenya Digital</span>
+    </div>
+    <button class="hamburger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="mobileNav" aria-label="Main navigation">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#values">Values</a></li>
+        <li><a href="#monetization">Earn</a></li>
+        <li><a href="#unity">Unity</a></li>
+        <li><a href="#join">Join</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-content">
+        <h1 id="hero-heading">Empowering Kenya, One Post at a Time.</h1>
+        <a href="#join" class="cta-btn">Download the ImagineBC App</a>
+      </div>
+    </section>
+
+    <section id="about" aria-labelledby="about-title">
+      <div class="container">
+        <h2 class="section-title" id="about-title">About Truly Kenya Digital</h2>
+        <div class="about-grid">
+          <div>
+            <p>
+              Truly Kenya Digital is Kenya’s leading ethical social media platform. We empower citizens
+              at home and across the diaspora to create, share, and earn responsibly through
+              educational, inspirational, and informative content—all powered by secure blockchain
+              technology.
+            </p>
+          </div>
+          <img src="https://imaginebc.net/wp-content/uploads/2025/06/TrulyKenya_LoginScreen.png" alt="Screenshot of the Truly Kenya Digital app login screen." loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <section id="values" aria-labelledby="values-title">
+      <div class="container">
+        <h2 class="section-title" id="values-title">Our Core Values</h2>
+        <div class="values-grid">
+          <article class="value-card" aria-labelledby="value-title-1">
+            <img src="https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Two colleagues discussing positively in an office, representing ethical engagement." loading="lazy" />
+            <div class="value-card-content">
+              <h3 id="value-title-1">Ethical Engagement</h3>
+              <p>Combating misinformation and fostering national pride through responsible, uplifting content.</p>
+            </div>
+          </article>
+          <article class="value-card" aria-labelledby="value-title-2">
+            <img src="https://images.pexels.com/photos/6476587/pexels-photo-6476587.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Person using a laptop with digital icons, symbolizing digital empowerment." loading="lazy" />
+            <div class="value-card-content">
+              <h3 id="value-title-2">Digital Empowerment</h3>
+              <p>Equipping users with tools to monetize creativity and participate in the global digital economy.</p>
+            </div>
+          </article>
+          <article class="value-card" aria-labelledby="value-title-3">
+            <img src="https://images.pexels.com/photos/4386431/pexels-photo-4386431.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Hands exchanging currency over a phone displaying a transaction, illustrating monetization for all." loading="lazy" />
+            <div class="value-card-content">
+              <h3 id="value-title-3">Monetization for All</h3>
+              <p>Blockchain‑powered rewards—1 point equals 1 dollar—redeemable through M‑PESA, banks, or in‑app purchases.</p>
+            </div>
+          </article>
+          <article class="value-card" aria-labelledby="value-title-4">
+            <img src="https://images.pexels.com/photos/2290243/pexels-photo-2290243.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Diverse group of young people connecting, representing youth and diaspora connection." loading="lazy" />
+            <div class="value-card-content">
+              <h3 id="value-title-4">Youth & Diaspora</h3>
+              <p>Bridging Kenya’s vibrant youth with the global diaspora to celebrate and support local talent.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="monetization" aria-labelledby="monetization-title">
+      <div class="container split">
+        <div>
+          <h2 class="section-title section-title--align-left" id="monetization-title">Earn as You Engage</h2>
+          <p>
+            Every like, share, and survey response turns into real value. Earn points that convert
+            directly to Kenyan shillings, support your favourite creators, or unlock premium
+            educational content.
+          </p>
+          <ul class="engage-features-list">
+            <li>
+              <svg class="feature-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1.5-8.5h3V13h-3v2H9.5V9.5h3V11h-3V9.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v1c0 .83-.67 1.5-1.5 1.5H11v-1.5zm.5-2.5c0-.55-.45-1-1-1s-1 .45-1 1 .45 1 1 1 1-.45 1-1z"/>
+              </svg>
+              <span>1 point = 1 USD equivalent</span>
+            </li>
+            <li>
+              <svg class="feature-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                 <path d="M21.41 8.64l-4-5.6A1 1 0 0016.65 3H7.35a1 1 0 00-.76.36l-4 5.6A1 1 0 002.76 10H4v8a2 2 0 002 2h3v-2.22a3 3 0 015.99-.06L15 18v2h3a2 2 0 002-2v-8h1.24a1 1 0 00.65-1.36zM15 11H9V9h6zm-1.5-5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM6 6.5A1.5 1.5 0 114.5 5 1.5 1.5 0 016 6.5zm12 0A1.5 1.5 0 1119.5 5 1.5 1.5 0 0118 6.5z"/>
+              </svg>
+              <span>Powered by decentralized ImagineBC infrastructure</span>
+            </li>
+            <li>
+              <svg class="feature-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14zm-3-6.5H10V11h4v1.5zm0-3H10V8h4v1.5z"/>
+              </svg>
+              <span>Cash‑out via M‑PESA & bank wallets</span>
+            </li>
+          </ul>
+        </div>
+        <img src="https://images.pexels.com/photos/6771427/pexels-photo-6771427.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Stylized illustration of coins and digital icons representing earnings on the Truly Kenya Digital platform." loading="lazy" />
+      </div>
+    </section>
+
+    <section id="unity" aria-labelledby="unity-title">
+      <div class="container split">
+        <img src="https://images.pexels.com/photos/7551752/pexels-photo-7551752.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Diverse group of people smiling and collaborating, symbolizing Kenyan unity." loading="lazy" />
+        <div>
+          <h2 class="section-title section-title--align-left" id="unity-title">One Kenya, Stronger Together</h2>
+          <p>
+            Truly Kenya Digital unites citizens and the diaspora through stories, music, art, and
+            civic dialogue—showcasing Kenya’s brilliance on a global stage.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="join" aria-labelledby="join-title">
+      <div class="container text-center">
+        <h2 class="section-title" id="join-title">Join the Movement</h2>
+        <p>Download the ImagineBC app and start earning today:</p>
+        <p style="margin:var(--space-lg) 0;"> <a href="https://apps.apple.com/us/app/imaginebc/id1476426515" class="cta-btn" target="_blank" rel="noopener noreferrer">App Store</a>
+          &nbsp;
+          <a href="https://play.google.com/store/apps/details?id=com.benepay.homebase" class="cta-btn" target="_blank" rel="noopener noreferrer">Google Play</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="year"></span> Truly Kenya Digital • Powered by</p>
+    <a href="https://imaginebc.net" target="_blank" rel="noopener noreferrer" aria-label="Visit ImagineBC website">
+      <img src="https://imaginebc.net/wp-content/uploads/2024/12/ImagineBC_H_BnWLogo.png" alt="ImagineBC Logo" />
+    </a>
+  </footer>
+
+  <script>
+    // Hamburger toggle
+    const burger = document.getElementById('burger');
+    const nav = document.getElementById('mobileNav');
+    if (burger && nav) { // Ensure elements exist
+      burger.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('open');
+        burger.setAttribute('aria-expanded', isOpen);
+        burger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+      });
+    }
+
+    // Current year
+    const yearSpan = document.getElementById('year');
+    if (yearSpan) {
+      yearSpan.textContent = new Date().getFullYear();
+    }
+
+    // Smooth scroll for anchor links & close mobile nav
+    document.querySelectorAll('nav a[href^="#"], .hero a[href^="#"]').forEach(anchor => { // Include hero CTA
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+        // Close mobile nav if open
+        if (nav.classList.contains('open')) {
+          nav.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+          burger.setAttribute('aria-label', 'Open menu');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
