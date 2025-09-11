@@ -17,6 +17,8 @@
       --white:#fff;
       --gray-100:#f7f7f7;
       --gray-700:#444;
+      --light-green: #f2f9f2; /* Softer background color */
+      --header-height: 72px; /* For scroll padding */
       --max-width:1200px;
 
       /* Typography */
@@ -31,6 +33,11 @@
       --space-xl:2.5rem;
     }
     *{box-sizing:border-box;margin:0;padding:0}
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--header-height); /* Prevents header from overlapping content on nav click */
+    }
     body{font-family:var(--font-body);color:var(--gray-700);background:var(--white);line-height:1.6;overflow-x:hidden}
     img{max-width:100%;display:block}
     a{text-decoration:none;color:var(--red)}
@@ -38,32 +45,50 @@
     /* Accessibility */
     .skip-link {
       position: absolute;
-      top: -4rem; /* Adjusted to ensure it's truly off-screen initially */
+      top: -4rem;
       left: .5rem;
       background: var(--black);
       color: var(--white);
       padding: var(--space-sm) var(--space-md);
       z-index: 9999;
       transition: top 0.3s ease-in-out;
-      border-bottom-right-radius: 4px;
-      border-bottom-left-radius: 4px;
+      border-radius: 4px;
     }
     .skip-link:focus {
       top: 0;
     }
 
     /* ---------------- Header ---------------- */
-    header{display:flex;align-items:center;justify-content:space-between;padding:var(--space-sm) var(--space-lg);position:sticky;top:0;background:var(--white);box-shadow:0 2px 4px rgba(0,0,0,.05);z-index:1000}
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:var(--space-sm) var(--space-lg);
+      position:sticky;
+      top:0;
+      z-index:1000;
+      height: var(--header-height);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    /* Scrolled state for header */
+    header.scrolled {
+      background-color: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px); /* For Safari */
+      box-shadow: 0 2px 8px rgba(0,0,0,.07);
+    }
     .logo{display:flex;align-items:center;gap:var(--space-sm)}
     .logo img{height:48px}
     .logo-title{font-family:var(--font-head);font-weight:700;font-size:1.4rem;color:var(--black)}
     nav ul{display:flex;gap:var(--space-lg);list-style:none}
-    nav a{font-weight:600;font-family:var(--font-head);color:var(--black);padding:var(--space-xs) var(--space-sm);border-radius:4px;transition:background .2s}
+    nav a{font-weight:600;font-family:var(--font-head);color:var(--black);padding:var(--space-xs) var(--space-sm);border-radius:4px;transition:background .2s, color .2s}
     nav a:hover, nav a:focus{background:var(--gray-100); outline: 2px solid var(--green);}
+
     /* Hamburger */
     .hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;background:transparent;border:none;padding:var(--space-xs)}
     .hamburger span{width:24px;height:3px;background:var(--black);transition:.3s; border-radius: 1px;}
     .hamburger:focus { outline: 2px solid var(--green); border-radius: 4px;}
+
     /* Mobile nav */
     @media(max-width:768px){
       .hamburger{display:flex}
@@ -74,16 +99,18 @@
 
     /* ---------------- Hero ---------------- */
     .hero{
-      background:url('https://imaginebc.net/wp-content/uploads/2025/06/TrulyKenyaHeroImage.webp') center center/cover no-repeat;
-      min-height:55vh;
+      background:url('https://imaginebc.net/wp-content/uploads/2025/09/HERO-Image.png') center center/cover no-repeat;
+      min-height: calc(100vh - var(--header-height));
+      max-height: 800px;
       position:relative;
       color:var(--white);
       display:flex;
       align-items:center;
       justify-content:center;
       text-align:center;
+      margin-top: calc(-1 * var(--header-height)); /* Pull hero up under transparent header */
     }
-    .hero::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.45)}
+    .hero::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.50)}
     .hero-content{position:relative;max-width:800px;padding:0 var(--space-lg)}
     .hero h1{
       font-family:var(--font-head);
@@ -93,11 +120,11 @@
       margin-bottom:var(--space-md);
     }
     .cta-btn{display:inline-block;background:linear-gradient(90deg,var(--green),var(--red));color:var(--white);padding:var(--space-sm) var(--space-lg);border-radius:30px;font-weight:700;box-shadow:0 3px 6px rgba(0,0,0,.2);transition:transform .25s, box-shadow .25s}
-    .cta-btn:hover, .cta-btn:focus{transform:translateY(-3px); box-shadow:0 6px 12px rgba(0,0,0,.3); outline: none;}
+    .cta-btn:hover, .cta-btn:focus{transform:translateY(-4px) scale(1.02); box-shadow:0 6px 12px rgba(0,0,0,.3); outline: none;}
 
     /* ---------------- Sections ---------------- */
     section{padding:var(--space-xl) var(--space-lg)}
-    section:nth-of-type(even){background:var(--gray-100)}
+    section:nth-of-type(even){background:var(--light-green)}
     .container{max-width:var(--max-width);margin:auto}
     h2.section-title{font-family:var(--font-head);font-size:2rem;margin-bottom:var(--space-lg);color:var(--black);text-align:center;position:relative}
     h2.section-title::after{content:"";display:block;width:60px;height:4px;background:var(--red);margin:var(--space-sm) auto 0;border-radius:2px}
@@ -111,7 +138,7 @@
     /* Core Values */
     .values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--space-lg)}
     .value-card{background:var(--white);border:1px solid #e0e0e0;border-radius:12px;box-shadow:0 3px 8px rgba(0,0,0,.05);overflow:hidden;transition:transform .25s,box-shadow .25s; display:flex; flex-direction:column;}
-    .value-card:hover, .value-card:focus-within {transform:translateY(-4px);box-shadow:0 6px 16px rgba(0,0,0,.08)}
+    .value-card:hover, .value-card:focus-within {transform:translateY(-8px);box-shadow:0 8px 20px rgba(0,0,0,.1)}
     .value-card img{height:180px;object-fit:cover;width:100%}
     .value-card-content{padding:var(--space-md); flex-grow:1;}
     .value-card h3{font-family:var(--font-head);font-size:1.2rem;margin-bottom:var(--space-sm);color:var(--green)}
@@ -120,34 +147,44 @@
     /* Monetization / Unity two‑col */
     .split{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-xl);align-items:center}
     .split img {border-radius: 8px;}
-    
-    /* Default styling for ul in .split - ensure it doesn't conflict or remove if .engage-features-list is the only case */
-    .split ul {list-style: none; padding-left: 0; margin-top: var(--space-md);}
-    /* .split ul li { padding-left: var(--space-md); position: relative; margin-bottom: var(--space-sm);} */ /* Old rule for data-emoji */
-    /* .split ul li::before { content: attr(data-emoji); position: absolute; left: 0; } */ /* Old rule for data-emoji */
 
-    /* NEW: Styling for "Earn as You Engage" features list */
     .engage-features-list {
       list-style: none;
       padding-left: 0;
-      margin-top: var(--space-lg); /* Slightly more top margin */
+      margin-top: var(--space-lg);
     }
     .engage-features-list li {
       display: flex;
-      align-items: flex-start; /* Align icon to top of text if text wraps */
-      margin-bottom: var(--space-lg); /* More space between list items */
-      font-size: 1rem; /* Ensure consistent font size */
+      align-items: flex-start;
+      margin-bottom: var(--space-lg);
+      font-size: 1rem;
     }
     .engage-features-list .feature-icon {
       width: 28px;
       height: 28px;
-      fill: var(--green); /* Using theme color for icons */
-      margin-right: var(--space-md); /* Space between icon and text */
-      flex-shrink: 0; /* Prevent icon from shrinking */
+      fill: var(--green);
+      margin-right: var(--space-md);
+      flex-shrink: 0;
     }
     .engage-features-list li span {
-      flex-grow: 1; /* Allow text to take remaining space */
-      line-height: 1.5; /* Adjust line height for readability with icon */
+      flex-grow: 1;
+      line-height: 1.5;
+    }
+
+    /* Animation Classes */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in {
+        transition: none;
+      }
     }
 
     /* Utility Classes */
@@ -155,7 +192,7 @@
 
     /* Footer */
     footer{background:var(--black);color:var(--white);text-align:center;padding:var(--space-lg) var(--space-md)}
-    footer img{height:32px;margin:var(--space-sm) auto}
+    footer img{height:32px;margin:var(--space-sm) auto; transition: opacity 0.2s;}
     footer p{font-size:.9rem;margin-bottom:var(--space-sm)}
     footer a:hover img, footer a:focus img {opacity: 0.8;}
   </style>
@@ -163,7 +200,7 @@
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <header>
+  <header id="site-header">
     <div class="logo">
       <img src="https://imaginebc.net/wp-content/uploads/2025/06/LogoTransparent-Dark-Colors.png" alt="Truly Kenya Digital company logo" />
       <span class="logo-title">Truly Kenya Digital</span>
@@ -191,7 +228,7 @@
     </section>
 
     <section id="about" aria-labelledby="about-title">
-      <div class="container">
+      <div class="container fade-in">
         <h2 class="section-title" id="about-title">About Truly Kenya Digital</h2>
         <div class="about-grid">
           <div>
@@ -208,32 +245,32 @@
     </section>
 
     <section id="values" aria-labelledby="values-title">
-      <div class="container">
+      <div class="container fade-in">
         <h2 class="section-title" id="values-title">Our Core Values</h2>
         <div class="values-grid">
           <article class="value-card" aria-labelledby="value-title-1">
-            <img src="https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Two colleagues discussing positively in an office, representing ethical engagement." loading="lazy" />
+            <img src="https://imaginebc.net/wp-content/uploads/2025/09/Ethical.png" alt="Two colleagues discussing positively in an office, representing ethical engagement." loading="lazy" />
             <div class="value-card-content">
               <h3 id="value-title-1">Ethical Engagement</h3>
               <p>Combating misinformation and fostering national pride through responsible, uplifting content.</p>
             </div>
           </article>
           <article class="value-card" aria-labelledby="value-title-2">
-            <img src="https://images.pexels.com/photos/6476587/pexels-photo-6476587.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Person using a laptop with digital icons, symbolizing digital empowerment." loading="lazy" />
+            <img src="https://imaginebc.net/wp-content/uploads/2025/09/pexels-davdkuko-17794199-scaled.jpg" alt="Person using a laptop with digital icons, symbolizing digital empowerment." loading="lazy" />
             <div class="value-card-content">
               <h3 id="value-title-2">Digital Empowerment</h3>
               <p>Equipping users with tools to monetize creativity and participate in the global digital economy.</p>
             </div>
           </article>
           <article class="value-card" aria-labelledby="value-title-3">
-            <img src="https://images.pexels.com/photos/4386431/pexels-photo-4386431.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Hands exchanging currency over a phone displaying a transaction, illustrating monetization for all." loading="lazy" />
+            <img src="https://imaginebc.net/wp-content/uploads/2025/09/DigitalCurrency-scaled.jpg" alt="Hands exchanging currency over a phone displaying a transaction, illustrating monetization for all." loading="lazy" />
             <div class="value-card-content">
               <h3 id="value-title-3">Monetization for All</h3>
               <p>Blockchain‑powered rewards—1 point equals 1 dollar—redeemable through M‑PESA, banks, or in‑app purchases.</p>
             </div>
           </article>
           <article class="value-card" aria-labelledby="value-title-4">
-            <img src="https://images.pexels.com/photos/2290243/pexels-photo-2290243.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Diverse group of young people connecting, representing youth and diaspora connection." loading="lazy" />
+            <img src="https://imaginebc.net/wp-content/uploads/2025/09/Africanyouth.jpg" alt="Diverse group of young people connecting, representing youth and diaspora connection." loading="lazy" />
             <div class="value-card-content">
               <h3 id="value-title-4">Youth & Diaspora</h3>
               <p>Bridging Kenya’s vibrant youth with the global diaspora to celebrate and support local talent.</p>
@@ -244,7 +281,7 @@
     </section>
 
     <section id="monetization" aria-labelledby="monetization-title">
-      <div class="container split">
+      <div class="container split fade-in">
         <div>
           <h2 class="section-title section-title--align-left" id="monetization-title">Earn as You Engage</h2>
           <p>
@@ -273,13 +310,13 @@
             </li>
           </ul>
         </div>
-        <img src="https://images.pexels.com/photos/6771427/pexels-photo-6771427.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Stylized illustration of coins and digital icons representing earnings on the Truly Kenya Digital platform." loading="lazy" />
+        <img src="https://imaginebc.net/wp-content/uploads/2025/09/earnasyouengage.jpg" alt="Stylized illustration of coins and digital icons representing earnings on the Truly Kenya Digital platform." loading="lazy" />
       </div>
     </section>
 
     <section id="unity" aria-labelledby="unity-title">
-      <div class="container split">
-        <img src="https://images.pexels.com/photos/7551752/pexels-photo-7551752.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Diverse group of people smiling and collaborating, symbolizing Kenyan unity." loading="lazy" />
+      <div class="container split fade-in">
+        <img src="https://imaginebc.net/wp-content/uploads/2025/09/KenyaTogether.png" alt="Diverse group of people smiling and collaborating, symbolizing Kenyan unity." loading="lazy" />
         <div>
           <h2 class="section-title section-title--align-left" id="unity-title">One Kenya, Stronger Together</h2>
           <p>
@@ -291,7 +328,7 @@
     </section>
 
     <section id="join" aria-labelledby="join-title">
-      <div class="container text-center">
+      <div class="container text-center fade-in">
         <h2 class="section-title" id="join-title">Join the Movement</h2>
         <p>Download the Truly Kenya app and start earning today:</p>
         <p style="margin:var(--space-lg) 0;"> <a href="https://apps.apple.com/ke/app/truly-kenya/id6743923620" class="cta-btn" target="_blank" rel="noopener noreferrer">App Store</a>
@@ -310,43 +347,70 @@
   </footer>
 
   <script>
-    // Hamburger toggle
-    const burger = document.getElementById('burger');
-    const nav = document.getElementById('mobileNav');
-    if (burger && nav) { // Ensure elements exist
-      burger.addEventListener('click', () => {
-        const isOpen = nav.classList.toggle('open');
-        burger.setAttribute('aria-expanded', isOpen);
-        burger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    document.addEventListener('DOMContentLoaded', () => {
+      // Hamburger toggle
+      const burger = document.getElementById('burger');
+      const nav = document.getElementById('mobileNav');
+      if (burger && nav) {
+        burger.addEventListener('click', () => {
+          const isOpen = nav.classList.toggle('open');
+          burger.setAttribute('aria-expanded', isOpen);
+          burger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+        });
+      }
+
+      // Current year
+      const yearSpan = document.getElementById('year');
+      if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+      }
+
+      // Smooth scroll for anchor links & close mobile nav
+      document.querySelectorAll('nav a[href^="#"], .hero a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth'
+            });
+          }
+          // Close mobile nav if open
+          if (nav && nav.classList.contains('open')) {
+            nav.classList.remove('open');
+            burger.setAttribute('aria-expanded', 'false');
+            burger.setAttribute('aria-label', 'Open menu');
+          }
+        });
       });
-    }
 
-    // Current year
-    const yearSpan = document.getElementById('year');
-    if (yearSpan) {
-      yearSpan.textContent = new Date().getFullYear();
-    }
-
-    // Smooth scroll for anchor links & close mobile nav
-    document.querySelectorAll('nav a[href^="#"], .hero a[href^="#"]').forEach(anchor => { // Include hero CTA
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-          targetElement.scrollIntoView({
-            behavior: 'smooth'
+      // Scrolled header effect
+      const header = document.getElementById('site-header');
+      if (header) {
+          window.addEventListener('scroll', () => {
+              if (window.scrollY > 50) {
+                  header.classList.add('scrolled');
+              } else {
+                  header.classList.remove('scrolled');
+              }
           });
-        }
-        // Close mobile nav if open
-        if (nav.classList.contains('open')) {
-          nav.classList.remove('open');
-          burger.setAttribute('aria-expanded', 'false');
-          burger.setAttribute('aria-label', 'Open menu');
-        }
+      }
+
+      // Fade-in animation on scroll
+      const fadeElems = document.querySelectorAll('.fade-in');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, {
+        threshold: 0.1
       });
+
+      fadeElems.forEach(elem => observer.observe(elem));
     });
   </script>
 </body>
 </html>
-
