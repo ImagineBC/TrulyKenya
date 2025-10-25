@@ -131,6 +131,15 @@
     .section-title--align-left {text-align: left;}
     .section-title--align-left::after {margin-left: 0; margin-right:auto;}
 
+    /* --- NEW TRAILER SECTION --- */
+    #trailer-video {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,.1);
+      margin-top: var(--space-lg);
+    }
+
     /* About */
     .about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-lg);align-items:center}
     .about-grid img{border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.1)}
@@ -283,6 +292,15 @@
       </div>
     </section>
 
+    <section id="trailer" aria-labelledby="trailer-title">
+      <div class="container fade-in">
+        <h2 class="section-title" id="trailer-title">Think Big. The Next Big Thing is You</h2>
+        <video id="trailer-video" controls poster="https://imaginebc.net/wp-content/uploads/2025/10/HeroVideo_TKD_Thumbnail.png">
+          <source src="https://imaginebc.net/wp-content/uploads/2025/10/HeroVideo_TKD.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </section>
     <section id="about" aria-labelledby="about-title">
       <div class="container fade-in">
         <h2 class="section-title" id="about-title">About Truly Kenya Digital</h2>
@@ -355,7 +373,7 @@
             <li>
               <svg class="feature-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                  <path d="M21.41 8.64l-4-5.6A1 1 0 0016.65 3H7.35a1 1 0 00-.76.36l-4 5.6A1 1 0 002.76 10H4v8a2 2 0 002 2h3v-2.22a3 3 0 015.99-.06L15 18v2h3a2 2 0 002-2v-8h1.24a1 1 0 00.65-1.36zM15 11H9V9h6zm-1.5-5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM6 6.5A1.5 1.5 0 114.5 5 1.5 1.5 0 016 6.5zm12 0A1.5 1.5 0 1119.5 5 1.5 1.5 0 0118 6.5z"/>
-              </Tsvg>
+              </svg>
               <span>Powered by decentralized ImagineBC infrastructure</span>
             </li>
             <li>
@@ -472,7 +490,7 @@
               if (window.scrollY > 50) {
                   header.classList.add('scrolled');
               } else {
-                  header.classList.remove('scrolled');
+                  header.classList.remove('scrolled'); // <-- Typo fixed here
               }
           });
       }
